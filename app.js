@@ -14,26 +14,29 @@ app.use(bodyParser.urlencoded({
 }));
 app.use(express.static("public"));
 
-mongoose.connect('mongodb://localhost:27017/wikiDB', {useNewUrlParser: true, useUnifiedTopology: true});
+mongoose.connect("mongodb://localhost:27017/wikiDB", {useNewUrlParser: true, useUnifiedTopology: true});
 
-const articleschema = new mongoose.Schema({
-    title: String ,
-    content: String
-});
-const Article = mongoose.model("Article",articleschema);
+const articleSchema = {
+  title: String,
+  content: String
+};
+
+const Article = mongoose.model("Article", articleSchema);
+
+///////////////////////////////////Requests Targetting all Articles////////////////////////
 
 app.route("/articles")
 
 .get(function(req, res){
   Article.find(function(err, foundArticles){
     if (!err) {
+      console.log(foundArticles);
       res.send(foundArticles);
     } else {
       res.send(err);
     }
   });
 })
-
 
 
 app.listen(3000, function() {
