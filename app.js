@@ -30,13 +30,29 @@ app.route("/articles")
 .get(function(req, res){
   Article.find(function(err, foundArticles){
     if (!err) {
-      console.log(foundArticles);
       res.send(foundArticles);
     } else {
       res.send(err);
     }
   });
-})
+});
+
+app.post("/articles",function(req,res){
+  console.log(req.body.title);
+  console.log(req.body.content);
+
+const newArticle = new Article({
+  title:req.body.title,
+  content:req.body.content
+});
+newArticle.save(function(err){
+  if(!err){
+    res.send("succesfully added an article")
+  }else{
+    res.send(err);
+  }
+});
+});
 
 
 app.listen(3000, function() {
