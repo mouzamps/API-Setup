@@ -73,6 +73,18 @@ app.route("/articles/:articleTitle")
       res.send("No Articles found matching");
     }
   });
+})
+.put(function(req,res){
+  Article.updateMany(
+    {title:req.params.articleTitle},
+    {title:req.body.title, content:req.body.content},
+    {overwrite:true},
+    function(err){
+      if(!err){
+        res.send("succesfully upadted");
+      }
+    }
+  );
 });
 
 
