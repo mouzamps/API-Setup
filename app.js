@@ -63,6 +63,17 @@ newArticle.save(function(err){
   });
 });
 
+app.route("/articles/:articleTitle")
+
+.get(function(req,res){
+  Article.findOne({title: req.params.articleTitle},function(err,foundarticle){
+    if (foundarticle){
+      res.send(foundarticle);
+    }else{
+      res.send("No Articles found matching");
+    }
+  });
+});
 
 
 app.listen(3000, function() {
