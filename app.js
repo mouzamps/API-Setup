@@ -35,17 +35,15 @@ app.route("/articles")
       res.send(err);
     }
   });
-});
+})
 
-app.post("/articles",function(req,res){
+.post(function(req,res){
   console.log(req.body.title);
   console.log(req.body.content);
-
-
 const newArticle = new Article({
   title:req.body.title,
   content:req.body.content
-});
+})
 newArticle.save(function(err){
   if(!err){
     res.send("succesfully added an article")
@@ -53,9 +51,9 @@ newArticle.save(function(err){
     res.send(err);
   }
 });
-});
+})
 
-app.delete("/articles",function(req,res){
+.delete(function(req,res){
   Article.deleteMany(function(err){
     if(!err){
       res.send("succesfully deleted all articles.");
