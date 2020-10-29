@@ -85,7 +85,21 @@ app.route("/articles/:articleTitle")
       }
     }
   );
+})
+.patch(function(req,res){
+  Article.updateMany(
+    {title:req.params.articleTitle},
+    {$set: req.body},
+    function(err){
+      if(!err){
+        res.send("succesfully updated patch");
+      }else{
+        res.send(err);
+      }
+    }
+  );
 });
+
 
 
 app.listen(3000, function() {
